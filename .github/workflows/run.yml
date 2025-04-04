@@ -26,7 +26,7 @@ jobs:
       - name: Install Chrome and ChromeDriver
         run: |
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4
+          sudo apt-get install -y wget unzip xvfb libxi6
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
           LATEST=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
@@ -34,7 +34,6 @@ jobs:
           unzip chromedriver_linux64.zip
           sudo mv chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
-
       - name: Run Reservation Checker
         run: |
           xvfb-run --auto-servernum --server-args='-screen 0 1024x768x24' python book.py
