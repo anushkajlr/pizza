@@ -6,7 +6,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.common.keys import Keys
-from datetime import datetime, timedelta
 import requests
 # Ensure SSL module is properly loaded
 try:
@@ -55,7 +54,7 @@ def check_reservation(num_adults=4, target_date=None):
 
         # Determine target date (default: tomorrow)
         if not target_date:
-            target_date = (datetime.now() +timedelta(days=5)).strftime("%Y-%m-%d")
+            target_date = ('2025-04-05')
 
         # Set date (bypassing readonly)
         date_input = driver.find_element(By.ID, "reservation_start_date")
@@ -104,7 +103,7 @@ def check_reservation(num_adults=4, target_date=None):
                 print(f" - {t}")
             send_telegram_message(f"Reservation available for {num_adults} adults on {target_date}!\nAvailable times: {', '.join(available_times)}")
         else:
-            pass
+            print("None available")
     except Exception as e:
         print("Error checking reservations:", e)
     finally:
