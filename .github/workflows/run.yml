@@ -23,17 +23,27 @@ jobs:
           python -m pip install --upgrade pip
           pip install selenium requests
 
-      - name: Install Chrome and ChromeDriver
+      - name: Install ChromeDriver v135
         run: |
+          sudo apt-get remove google-chrome-stable
           sudo apt-get update
-          sudo apt-get install -y wget unzip xvfb libxi6
+          sudo apt-get install -y wget unzip
+
+          # Download Chrome v135
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-          sudo apt install -y ./google-chrome-stable_current_amd64.deb
-          LATEST=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-          wget https://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/local/bin/chromedriver
+          sudo dpkg -i google-chrome-stable_current_amd64.deb || sudo apt-get -f install -y
+
+          # Download ChromeDriver v135
+          wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/135.0.7049.52/linux64/chromedriver-linux64.zip
+          unzip chromedriver-linux64.zip
+          sudo mv chromedriver-linux64/chromedriver /usr/local/bin/chromedriver
           sudo chmod +x /usr/local/bin/chromedriver
+
+      - name: Verify versions
+        run: |
+          google-chrome --version
+          chromedriver --version
+
       - name: Run Reservation Checker
         run: |
           xvfb-run --auto-servernum --server-args='-screen 0 1024x768x24' python book.py
