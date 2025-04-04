@@ -19,8 +19,9 @@ except ImportError:
 RESERVATION_URL = "https://www.tablecheck.com/en/shops/pizza-4ps-in-indiranagar/reserve"
 
 # Set up Selenium WebDriver (Ensure you have ChromeDriver installed)
-CHROMEDRIVER_PATH = '/opt/homebrew/bin/chromedriver'  # Ensure environment compatibility
-service = Service(CHROMEDRIVER_PATH)
+# CHROMEDRIVER_PATH = '/opt/homebrew/bin/chromedriver'  # Ensure environment compatibility
+# service = Service(CHROMEDRIVER_PATH)
+service = Service()
 options = webdriver.ChromeOptions()
 options.add_argument("--headless")  # Run in headless mode (no browser UI)
 options.add_argument("--disable-gpu")  # Fixes some headless issues
